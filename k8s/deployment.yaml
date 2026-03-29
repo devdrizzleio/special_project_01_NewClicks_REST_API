@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newclicks-deployment
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: newclicks
+
+  template:
+    metadata:
+      labels:
+        app: newclicks
+
+    spec:
+      containers:
+        - name: newclicks
+          image: newclicks:latest
+          ports:
+            - containerPort: 5000
+
+          envFrom:
+            - configMapRef:
+                name: newclicks-config
